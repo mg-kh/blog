@@ -10,10 +10,12 @@
     <b-container>
       <b-row>
         <b-col>
-          <b-nav class="border-bottom">
-            <b-nav-item active>New Feed</b-nav-item>
-            <b-nav-item>Followed Feed</b-nav-item>
-          </b-nav>
+          <b-tabs content-class="mt-3">
+            <b-tab title="New Feed"></b-tab>
+            <b-tab title="Home Feed"></b-tab>
+            <b-tab title="#Nitro"></b-tab>
+          </b-tabs>
+          <router-view></router-view>
         </b-col>
       </b-row>
     </b-container>
