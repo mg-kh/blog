@@ -1,5 +1,5 @@
 <template>
-	<post-card :limit="7"></post-card>
+	<post-card :limit="5"></post-card>
 </template>
 
 <script>
