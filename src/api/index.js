@@ -36,6 +36,10 @@ const API_SERVICE = {
 	post(resource, params) {
 		return Vue.axios.post(`${resource}`, params);
 	},
+
+	put(resource, params) {
+		return Vue.axios.put(`${resource}`, params);
+	},
 };
 
 export default API_SERVICE;
@@ -46,6 +50,9 @@ export const Auth = {
 	},
 	login(user) {
 		return API_SERVICE.post("users/login", user);
+	},
+	updateProfile(user) {
+		return API_SERVICE.put("user", { user });
 	},
 };
 

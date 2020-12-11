@@ -1,7 +1,7 @@
 import { Auth } from "@/api/index";
 import { setLocalStorageToken } from "@/api/localStorage.js";
 import API_SERVICE from "@/api/index";
-import { LOGIN, REGISTER } from "@/store/action.types";
+import { LOGIN, REGISTER, UPDATE_PROFILE } from "@/store/action.types";
 import { SET_ACCOUNT } from "@/store/mutation.actions";
 
 export const auth = {
@@ -43,12 +43,25 @@ export const auth = {
 		[LOGIN]({ commit }, user) {
 			return new Promise((res, rej) => {
 				Auth.login(user).then(({ data }) => {
-					console.log(data);
 					commit(SET_ACCOUNT, data.user);
 					setLocalStorageToken(data.user.token);
 					API_SERVICE.setHeader();
 					res();
 				});
+			});
+		},
+		[UPDATE_PROFILE]({ commit, state }, user) {
+			let { email, username, password, image, bio } = user;
+			if (!password) password = state.user.password;
+			console.log(user);
+			return Auth.updateProfile({
+				email,
+				username,
+				password,
+				image,
+				bio,
+			}).then(({ data }) => {
+				commit(SET_ACCOUNT, data.user);
 			});
 		},
 	},

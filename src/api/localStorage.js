@@ -4,24 +4,24 @@
  */
 
 const setLocalStorageToken = (token) => {
-  window.localStorage.setItem("TOKEN", token);
+	window.localStorage.setItem("TOKEN", token);
 };
 
 const getLocalStorageToken = (token) => {
-  window.localStorage.getItem("TOKEN");
+	return window.localStorage.getItem("TOKEN");
 };
 
 const removeLocalStorageToken = (token) => {
-  window.localStorage.removeItem("TOKEN");
+	window.localStorage.removeItem("TOKEN");
 };
 
 const clearLocalStorageToken = (token) => {
-  window.localStorage.clear();
+	window.localStorage.clear();
 };
 
 export {
-  setLocalStorageToken,
-  getLocalStorageToken,
-  removeLocalStorageToken,
-  clearLocalStorageToken,
+	setLocalStorageToken,
+	getLocalStorageToken,
+	removeLocalStorageToken,
+	clearLocalStorageToken,
 };
