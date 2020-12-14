@@ -12,6 +12,13 @@ Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 API_SERVICE.init();
 
+// router.beforeEach((to, from, next) => {
+// 	const { user } = store.state.auth;
+// 	console.log(user);
+// 	next();
+// });
+store.dispatch("AUTH_CHECK");
+
 new Vue({
 	router,
 	store,

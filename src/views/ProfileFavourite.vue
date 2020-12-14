@@ -4,8 +4,8 @@
 			<b-row>
 				<b-col>
 					<post-card
-						:query="{ author: username }"
-						:limit="1"
+						:query="{ favorited: username }"
+						:limit="5"
 					></post-card>
 				</b-col>
 			</b-row>

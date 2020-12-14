@@ -1,10 +1,10 @@
 <template>
-	<div class="overflow-auto">
+	<div class="overflow-auto" v-if="pageCount > 1">
 		<div class="mt-3">
-			<h6>Goto first and last button number</h6>
 			<b-pagination
 				v-model="currentPage"
-				:total-rows="rows"
+				:total-rows="pageCount"
+				:per-page="limit"
 				first-number
 				last-number
 				@change="changePage(currentPage)"
@@ -16,17 +16,20 @@
 <script>
 export default {
 	model: {
+		prop: "value",
 		event: "change",
 	},
 	props: {
 		pageCount: {
 			type: Number,
 		},
+		limit: {
+			// ! Need to count pagination button
+			type: Number,
+		},
 	},
 	data() {
 		return {
-			rows: this.pageCount,
-			perPage: 1,
 			currentPage: 1,
 		};
 	},

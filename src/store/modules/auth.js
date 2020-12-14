@@ -1,7 +1,15 @@
 import { Auth } from "@/api/index";
-import { setLocalStorageToken } from "@/api/localStorage.js";
+import {
+	setLocalStorageToken,
+	getLocalStorageToken,
+} from "@/api/localStorage.js";
 import API_SERVICE from "@/api/index";
-import { LOGIN, REGISTER, UPDATE_PROFILE } from "@/store/action.types";
+import {
+	LOGIN,
+	REGISTER,
+	UPDATE_PROFILE,
+	AUTH_CHECK,
+} from "@/store/action.types";
 import { SET_ACCOUNT } from "@/store/mutation.actions";
 
 export const auth = {
@@ -49,6 +57,14 @@ export const auth = {
 					res();
 				});
 			});
+		},
+		[AUTH_CHECK]({ commit }) {
+			if (getLocalStorageToken()) {
+				API_SERVICE.setHeader();
+				Auth.get().then(({ data }) => {
+					commit(SET_ACCOUNT, data.user);
+				});
+			}
 		},
 		[UPDATE_PROFILE]({ commit, state }, user) {
 			let { email, username, password, image, bio } = user;

@@ -3,7 +3,7 @@
 		<b-container>
 			<b-row class="mb-5">
 				<b-col cols="12" md="6" class="offset-md-3">
-					<b-card title="Edit Your Settings">
+					<b-card title="Edit Your Settings" class="mt-3">
 						<template>
 							<div>
 								<b-form @submit.prevent="updateProfile">
@@ -54,11 +54,6 @@
 										variant="primary"
 										class="mr-3"
 										>Update</b-button
-									>
-									<b-button
-										type="reset"
-										variant="danger"
-										>Cancle</b-button
 									>
 								</b-form>
 							</div>
