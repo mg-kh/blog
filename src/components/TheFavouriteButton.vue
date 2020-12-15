@@ -1,6 +1,5 @@
 <template>
-	<b-button size="sm" :variant="status" @click="handleClick"
-		>Like
+	<b-button size="sm" :variant="status" @click="handleClick">
 		<slot></slot>
 	</b-button>
 </template>

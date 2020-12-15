@@ -6,3 +6,7 @@ export const UPDATE_PROFILE = "UPDATE_PROFILE";
 export const CREATE_POST = "CREATE_POST";
 export const FAVOURITE_POST = "FAVOURITE_POST";
 export const UNFAVOURITE_POST = "UNFAVOURITE_POST";
+export const FETCH_POST = "FETCH_POST";
+export const FOLLOW_USER = "FOLLOW_USER";
+export const UNFOLLOW_USER = "UNFOLLOW_USER";
+export const SET_AUTHOR_POST = "SET_AUTHOR_POST";

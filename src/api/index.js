@@ -72,6 +72,9 @@ export const HomePost = {
 };
 
 export const Post = {
+	get(slug) {
+		return API_SERVICE.get(`/articles/${slug}`);
+	},
 	createPost(article) {
 		return API_SERVICE.post("articles", { article });
 	},
@@ -80,5 +83,14 @@ export const Post = {
 	},
 	unfavourite(slug) {
 		return API_SERVICE.delete(`articles/${slug}/favorite`);
+	},
+};
+
+export const Profile = {
+	follow(username) {
+		return API_SERVICE.post(`profiles/${username}/follow`);
+	},
+	unFollow(username) {
+		return API_SERVICE.delete(`profiles/${username}/follow`);
 	},
 };

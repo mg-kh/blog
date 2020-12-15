@@ -7,6 +7,7 @@ const Setting = import(/* webpackChunkName: "setting" */ "@/views/Setting");
 const Register = import(/* webpackChunkName: "register" */ "@/views/Register");
 const Login = import(/* webpackChunkName: "login" */ "@/views/Login");
 const NewFeed = import(/* webpackChunkName: "newfeed" */ "@/views/NewFeed");
+const Post = import(/* webpackChunkName: "newfeed" */ "@/views/Post");
 const ProfileFavourite = import(
 	/* webpackChunkName: "profile-favourite" */ "@/views/ProfileFavourite"
 );
@@ -54,6 +55,12 @@ const routes = [
 		path: "/editor/:slug?",
 		name: "Editor",
 		component: () => Editor,
+	},
+	{
+		path: "/post/:slug",
+		name: "Post",
+		props: true,
+		component: () => Post,
 	},
 	{
 		path: "/register",

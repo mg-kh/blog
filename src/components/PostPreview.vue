@@ -21,6 +21,7 @@
 						@click="toggleFavourite"
 						:status="isFavoritedClass"
 					>
+						Like
 						<b-badge variant="light">{{
 							post.favoritesCount
 						}}</b-badge>
@@ -37,7 +38,11 @@
 
 			<b-container class="mt-3">
 				<b-row class="align-items-center justify-content-between">
-					<b-button size="sm" href="#" variant="secondary"
+					<b-button
+						:to="{ path: '/post/' + post.slug }"
+						size="sm"
+						href="#"
+						variant="secondary"
 						>Read More</b-button
 					>
 					<div>

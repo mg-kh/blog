@@ -22,12 +22,18 @@
 									</b-form-group>
 
 									<b-form-group label="Post:">
-										<b-form-textarea
+										<vue-editor
+											v-model="body"
+											:editorToolbar="
+												customToolbar
+											"
+										></vue-editor>
+										<!-- <b-form-textarea
 											id="textarea-small"
 											size="sm"
 											v-model="body"
 											placeholder="Enter your post here"
-										></b-form-textarea>
+										></b-form-textarea> -->
 									</b-form-group>
 
 									<the-input-tag
@@ -55,6 +61,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import { VueEditor } from "vue2-editor";
 import TheButton from "@/components/TheButton";
 import TheInputTag from "@/components/TheInputTag";
 import { CREATE_POST } from "@/store/action.types";
@@ -63,15 +70,24 @@ export default {
 		return {
 			title: "",
 			description: "",
-			body: "",
+			body: "Your Content Please...",
 			tagList: [],
 			errors: {},
 			loading: false,
+			customToolbar: [
+				[{ header: [1, 2, 3, 4, 5, 6, false] }],
+				["bold", "italic", "underline", "strike", "blockquote"],
+				[{ list: "ordered" }, { list: "bullet" }],
+				[{ color: [] }, { background: [] }],
+				[{ font: [] }],
+				["clean"],
+			],
 		};
 	},
 	components: {
 		TheButton,
 		TheInputTag,
+		VueEditor,
 	},
 	methods: {
 		...mapActions({
