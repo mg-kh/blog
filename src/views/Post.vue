@@ -19,13 +19,31 @@
 			</b-row>
 			<hr class="my-2" />
 		</b-container>
+		<b-container>
+			<b-row>
+				<b-col cols="12">
+					<comment-editor
+						:slug="post.data.slug"
+						:author="post.data.author"
+					></comment-editor>
+				</b-col>
+				<b-col cols="12">
+					<list-comment
+						:comments="comment"
+						:slug="post.data.slug"
+					></list-comment>
+				</b-col>
+			</b-row>
+		</b-container>
 	</section>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
-import { FETCH_POST } from "@/store/action.types";
+import { FETCH_POST, FETCH_COMMENT } from "@/store/action.types";
 import PostContent from "@/components/PostContent";
+import ListComment from "@/components/ListComment";
+import CommentEditor from "@/components/CommentEditor";
 import PostMeta from "@/components/PostMeta";
 export default {
 	props: ["slug"],
@@ -34,21 +52,24 @@ export default {
 			isLoadingPost: true,
 		};
 	},
-	components: { PostContent, PostMeta },
+	components: { PostContent, PostMeta, CommentEditor, ListComment },
 	created() {
 		this.isLoadingPost = true;
 		this.fetchPost(this.slug).then(() => {
 			this.isLoadingPost = false;
 		});
+		this.fetchComment(this.slug);
 	},
 	computed: {
 		...mapState({
 			post: (state) => state.post.article,
+			comment: (state) => state.post.comments,
 		}),
 	},
 	methods: {
 		...mapActions({
 			fetchPost: FETCH_POST,
+			fetchComment: FETCH_COMMENT,
 		}),
 	},
 };

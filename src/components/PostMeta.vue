@@ -13,8 +13,33 @@
 				<a href="#" class="d-block">{{ post.author.username }}</a>
 				<small>{{ post.updatedAt }}</small>
 			</div>
-			<div class="d-flex align-items-center">
-				<the-favourite-button class="mr-2" @click="handleFollow"
+
+			<div class="d-flex align-items-center" v-if="isAuthor">
+				<b-button
+					size="sm"
+					variant="outline-danger"
+					class="mr-2"
+					@click="deletePost"
+					>Delete</b-button
+				>
+
+				<b-button
+					size="sm"
+					variant="success"
+					:to="{
+						name: 'Editor',
+						params: {
+							slug: this.post.slug,
+						},
+					}"
+					>Edit</b-button
+				>
+			</div>
+			<div class="d-flex align-items-center" v-else>
+				<the-favourite-button
+					class="mr-2"
+					@click="handleFollow"
+					:status="isFollowed"
 					>{{ buttonFollowText }}
 				</the-favourite-button>
 
@@ -41,6 +66,7 @@ import {
 	FOLLOW_USER,
 	UNFOLLOW_USER,
 	SET_AUTHOR_POST,
+	DELETE_POST,
 } from "@/store/action.types";
 export default {
 	props: {
@@ -56,8 +82,14 @@ export default {
 		...mapState({
 			user: (state) => state.auth.user,
 		}),
+		isAuthor() {
+			return this.user.username === this.post.author.username;
+		},
 		isFavoritedClass() {
 			return this.post.favorited ? "primary" : "secondary";
+		},
+		isFollowed() {
+			return this.post.author.following ? "danger" : "secondary";
 		},
 		isLogin() {
 			return this.user.username;
@@ -73,6 +105,7 @@ export default {
 			followUser: FOLLOW_USER,
 			unfollowUser: UNFOLLOW_USER,
 			setAuthor: SET_AUTHOR_POST,
+			deleteThePost: DELETE_POST,
 		}),
 		handlerFavorite() {
 			this.isLogin ? this.toggleFavorite() : this.pushToLoginScreen();
@@ -93,6 +126,14 @@ export default {
 
 			const author = await action(this.post.author.username);
 			this.setAuthor(author);
+		},
+		deletePost() {
+			this.deleteThePost(this.post.slug).then(() => {
+				this.$router.push({
+					name: "ProfileArticle",
+					params: { slug: this.user.username },
+				});
+			});
 		},
 		pushToLoginScreen() {
 			this.$router.push({ name: "SignIn" });

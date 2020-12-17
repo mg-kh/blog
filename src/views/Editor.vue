@@ -62,10 +62,17 @@
 <script>
 import { mapActions, mapState } from "vuex";
 import { VueEditor } from "vue2-editor";
+import store from "@/store";
 import TheButton from "@/components/TheButton";
 import TheInputTag from "@/components/TheInputTag";
-import { CREATE_POST } from "@/store/action.types";
+import { CREATE_POST, FETCH_POST, UPDATE_POST } from "@/store/action.types";
 export default {
+	props: {
+		slug: {
+			type: String,
+			default: "",
+		},
+	},
 	data() {
 		return {
 			title: "",
@@ -76,22 +83,83 @@ export default {
 			loading: false,
 			customToolbar: [
 				[{ header: [1, 2, 3, 4, 5, 6, false] }],
-				["bold", "italic", "underline", "strike", "blockquote"],
+				[
+					"bold",
+					"italic",
+					"underline",
+					"strike",
+					"blockquote",
+					"link",
+				],
 				[{ list: "ordered" }, { list: "bullet" }],
 				[{ color: [] }, { background: [] }],
-				[{ font: [] }],
+				[{ script: "sub" }, { script: "super" }],
 				["clean"],
 			],
 		};
+	},
+	async beforeRouteUpdate(to, from, next) {
+		const { slug } = to.params;
+		if (slug) {
+			await store.dispatch("FETCH_POST", slug);
+
+			const {
+				title,
+				description,
+				body,
+				tagList,
+			} = store.state.post.article.data;
+			this.title = title;
+			this.description = description;
+			this.body = body;
+			this.tagList = tagList.map((tag) => {
+				return {
+					content: tag,
+					key: Date.now() + tag,
+				};
+			});
+		} else {
+			this.title = "";
+			this.description = "";
+			this.body = "";
+			this.tagList = [];
+		}
+		next();
 	},
 	components: {
 		TheButton,
 		TheInputTag,
 		VueEditor,
 	},
+	computed: {
+		...mapState({
+			post: (state) => state.post.article.data,
+		}),
+	},
+	async created() {
+		const { slug } = this;
+		if (slug) {
+			if (this.post.slug !== slug) {
+				await this.fetchPost(slug);
+			}
+
+			const { title, description, body, tagList } = this.post;
+			this.title = title;
+			this.description = description;
+			this.body = body;
+			this.tagList = tagList.map((tag) => {
+				return {
+					content: tag,
+					key: Date.now() + tag,
+				};
+			});
+		}
+	},
 	methods: {
 		...mapActions({
 			createPost: CREATE_POST,
+			fetchPost: FETCH_POST,
+			updatePost: UPDATE_POST,
 		}),
 		handleSubmit() {
 			this.submitPost();
@@ -99,15 +167,31 @@ export default {
 		async submitPost() {
 			const { title, description, body } = this;
 			const tagList = this.tagList.map((tag) => tag.content);
+			let { slug } = this.$route.params;
+			let post;
 			try {
-				await this.createPost({
-					title,
-					description,
-					body,
-					tagList,
+				if (slug) {
+					post = await this.updatePost({
+						slug,
+						article: { title, description, body, tagList },
+					});
+				} else {
+					post = await this.createPost({
+						title,
+						description,
+						body,
+						tagList,
+					});
+				}
+
+				this.$router.push({
+					name: "Post",
+					params: {
+						slug: post.data.article.slug,
+					},
 				});
 			} catch ({ response }) {
-				this.errors = response.data.errors;
+				// this.errors = response.data.errors;
 			}
 		},
 	},

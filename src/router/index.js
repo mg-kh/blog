@@ -54,6 +54,7 @@ const routes = [
 	{
 		path: "/editor/:slug?",
 		name: "Editor",
+		props: true,
 		component: () => Editor,
 	},
 	{

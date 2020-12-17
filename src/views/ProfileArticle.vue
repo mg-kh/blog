@@ -5,7 +5,7 @@
 				<b-col>
 					<post-card
 						:query="{ author: username }"
-						:limit="1"
+						:limit="5"
 					></post-card>
 				</b-col>
 			</b-row>

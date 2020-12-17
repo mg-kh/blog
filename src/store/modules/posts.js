@@ -4,11 +4,17 @@ import {
 	UNFAVOURITE_POST,
 	FETCH_POST,
 	SET_AUTHOR_POST,
+	DELETE_POST,
+	UPDATE_POST,
+	ADD_COMMENT,
+	FETCH_COMMENT,
+	DELETE_COMMENT,
 } from "@/store/action.types";
 import {
 	SET_POST,
 	UPDATE_LIST_ARTICLE,
 	END_LOAD_POST,
+	UPDATE_COMMENT,
 } from "@/store/mutation.actions";
 import { Post } from "@/api/index";
 export const post = {
@@ -28,6 +34,10 @@ export const post = {
 				updatedAt: "",
 			},
 		},
+		comments: {
+			isLoading: false,
+			data: [],
+		},
 	},
 	getters: {},
 	mutations: {
@@ -38,6 +48,9 @@ export const post = {
 			state.article = {
 				data: article,
 			};
+		},
+		[UPDATE_COMMENT](state, comments) {
+			state.comments = comments;
 		},
 	},
 	actions: {
@@ -66,6 +79,44 @@ export const post = {
 				author,
 			});
 			commit(SET_POST, article);
+		},
+		[UPDATE_POST]({ commit }, payload) {
+			const { slug, article } = payload;
+			return Post.updatePost(slug, article);
+		},
+		[DELETE_POST]({ commit }, slug) {
+			Post.deletePost(slug);
+		},
+		[ADD_COMMENT]({ commit, state }, payload) {
+			const { slug, comment } = payload;
+			Post.addComment(slug, comment).then(({ data }) => {
+				state.comments.data.unshift(data.comment);
+				commit(UPDATE_COMMENT, {
+					data: state.comments.data,
+					isLoading: false,
+				});
+			});
+		},
+		[FETCH_COMMENT]({ commit }, slug) {
+			commit(UPDATE_COMMENT, { data: [], isLoading: true });
+			Post.getComment(slug).then(({ data }) => {
+				commit(UPDATE_COMMENT, {
+					data: data.comments,
+					isLoading: false,
+				});
+			});
+		},
+		[DELETE_COMMENT]({ commit, state }, payload) {
+			const { slug, id } = payload;
+			Post.deleteComment(slug, id).then(({ data }) => {
+				const comments = state.comments.data.filter(
+					(comment) => comment.id !== id
+				);
+				commit(UPDATE_COMMENT, {
+					data: comments,
+					isLoading: false,
+				});
+			});
 		},
 	},
 };

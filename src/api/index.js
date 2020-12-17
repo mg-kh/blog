@@ -84,6 +84,23 @@ export const Post = {
 	unfavourite(slug) {
 		return API_SERVICE.delete(`articles/${slug}/favorite`);
 	},
+	updatePost(slug, article) {
+		return API_SERVICE.put(`articles/${slug}`, { article });
+	},
+	deletePost(slug) {
+		return API_SERVICE.delete(`articles/${slug}`);
+	},
+	getComment(slug) {
+		return API_SERVICE.get(`articles/${slug}/comments`);
+	},
+	addComment(slug, comment) {
+		return API_SERVICE.post(`articles/${slug}/comments`, {
+			comment: { body: comment },
+		});
+	},
+	deleteComment(slug, id) {
+		return API_SERVICE.delete(`articles/${slug}/comments/${id}`);
+	},
 };
 
 export const Profile = {
