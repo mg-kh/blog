@@ -104,6 +104,9 @@ export const Post = {
 };
 
 export const Profile = {
+	get(username) {
+		return API_SERVICE.get(`profiles/${username}`);
+	},
 	follow(username) {
 		return API_SERVICE.post(`profiles/${username}/follow`);
 	},

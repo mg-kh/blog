@@ -4,16 +4,24 @@
 			<article class="d-flex mb-3">
 				<div class="mr-2">
 					<img
-						:src="post.author.image"
+						:src="profileImage"
 						alt="profile"
 						class="rounded-circle"
 						style="width: 50px; height: 50px"
 					/>
 				</div>
 				<div class="mr-auto">
-					<a href="#" class="d-block">{{
-						post.author.username
-					}}</a>
+					<router-link
+						class="d-block"
+						:to="{
+							name: 'ProfileArticle',
+							params: {
+								slug: post.author.username,
+							},
+						}"
+					>
+						{{ post.author.username }}
+					</router-link>
 					<small>{{ post.updatedAt }}</small>
 				</div>
 				<div>
@@ -86,6 +94,18 @@ export default {
 	computed: {
 		isFavoritedClass() {
 			return this.post.favorited ? "primary" : "secondary";
+		},
+		profileImage() {
+			if (
+				this.post.author.image ===
+				"https://static.productionready.io/images/smiley-cyrus.jpg"
+			) {
+				return "https://i.imgur.com/cUZroJx.png";
+			} else if (!this.post.author.image) {
+				return "https://i.imgur.com/cUZroJx.png";
+			} else {
+				return this.post.author.image;
+			}
 		},
 	},
 	methods: {

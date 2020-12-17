@@ -1,5 +1,10 @@
 import { Profile } from "@/api/index";
-import { FOLLOW_USER, UNFOLLOW_USER } from "@/store/action.types";
+import {
+	FOLLOW_USER,
+	UNFOLLOW_USER,
+	FETCH_PROFILE,
+	COPY_PROFILE,
+} from "@/store/action.types";
 import { SET_PROFILE } from "@/store/mutation.actions";
 
 export const profile = {
@@ -38,6 +43,18 @@ export const profile = {
 				});
 				return data.profile;
 			});
+		},
+		[FETCH_PROFILE]({ commit }, username) {
+			commit(SET_PROFILE, { user: {}, isLoading: true });
+			Profile.get(username).then(({ data }) => {
+				commit(SET_PROFILE, {
+					user: data.profile,
+					isLoading: false,
+				});
+			});
+		},
+		[COPY_PROFILE]({ commit }, user) {
+			commit(SET_PROFILE, { user, isLoading: false });
 		},
 	},
 };
