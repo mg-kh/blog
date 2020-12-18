@@ -7,7 +7,9 @@
 				@keydown.enter="submitTag"
 			></b-form-input>
 			<b-input-group-append>
-				<b-button variant="info">Add Tag</b-button>
+				<b-button variant="success" @click.prevent="submitTag"
+					>Add Tag</b-button
+				>
 			</b-input-group-append>
 		</b-input-group>
 

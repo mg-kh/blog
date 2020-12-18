@@ -2,13 +2,15 @@
 	<section id="app">
 		<nav-bar></nav-bar>
 		<router-view />
+		<the-footer></the-footer>
 	</section>
 </template>
 
 <script>
 import NavBar from "@/components/NavBar";
+import TheFooter from "@/components/TheFooter";
 export default {
-	components: { NavBar },
+	components: { TheFooter, NavBar },
 };
 </script>
 

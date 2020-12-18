@@ -1,5 +1,5 @@
 <template>
-	<section v-if="comments.data.length">
+	<section v-if="comments.data.length" class="mb-5">
 		<the-comment
 			v-for="comment in comments.data"
 			:key="comment.id"

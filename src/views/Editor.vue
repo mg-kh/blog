@@ -3,7 +3,7 @@
 		<b-container>
 			<b-row>
 				<b-col>
-					<b-card class="mt-3">
+					<b-card class="my-5">
 						<template>
 							<div>
 								<b-form @submit.prevent="">
@@ -43,12 +43,6 @@
 									<the-button
 										@click="handleSubmit"
 									></the-button>
-
-									<b-button
-										type="reset"
-										variant="danger"
-										>Cancle</b-button
-									>
 								</b-form>
 							</div>
 						</template>
@@ -183,7 +177,6 @@ export default {
 						tagList,
 					});
 				}
-
 				this.$router.push({
 					name: "Post",
 					params: {

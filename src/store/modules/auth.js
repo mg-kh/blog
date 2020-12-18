@@ -2,6 +2,7 @@ import { Auth } from "@/api/index";
 import {
 	setLocalStorageToken,
 	getLocalStorageToken,
+	removeLocalStorageToken,
 } from "@/api/localStorage.js";
 import API_SERVICE from "@/api/index";
 import {
@@ -9,8 +10,9 @@ import {
 	REGISTER,
 	UPDATE_PROFILE,
 	AUTH_CHECK,
+	LOGOUT,
 } from "@/store/action.types";
-import { SET_ACCOUNT } from "@/store/mutation.actions";
+import { SET_ACCOUNT, REMOVE_ACCOUNT } from "@/store/mutation.actions";
 
 export const auth = {
 	state: {
@@ -32,31 +34,45 @@ export const auth = {
 			state.user = user;
 			state.isLogin = true;
 		},
+		[REMOVE_ACCOUNT](state) {
+			state.user = {};
+			state.isLogin = false;
+			state.errors = {};
+		},
 	},
 	actions: {
 		[REGISTER]({ commit }, user) {
 			return new Promise((res, rej) => {
 				Auth.register(user)
-					.then((resp) => {
-						commit(SET_ACCOUNT, resp.user);
-						setLocalStorageToken(resp.user.token);
+					.then(({ data }) => {
+						commit(SET_ACCOUNT, data.user);
+						setLocalStorageToken(data.user.token);
 						API_SERVICE.setHeader();
 						res();
 					})
-					.catch((err) => {
-						console.log(err);
+					.catch(({ response }) => {
+						console.log(response);
 					});
 			});
 		},
 		[LOGIN]({ commit }, user) {
 			return new Promise((res, rej) => {
-				Auth.login(user).then(({ data }) => {
-					commit(SET_ACCOUNT, data.user);
-					setLocalStorageToken(data.user.token);
-					API_SERVICE.setHeader();
-					res();
-				});
+				Auth.login(user)
+					.then(({ data }) => {
+						commit(SET_ACCOUNT, data.user);
+						setLocalStorageToken(data.user.token);
+						API_SERVICE.setHeader();
+						res();
+					})
+					.catch(({ response }) => {
+						console.log(response);
+					});
 			});
+		},
+		[LOGOUT]({ commit }) {
+			removeLocalStorageToken();
+			API_SERVICE.setHeader();
+			commit(REMOVE_ACCOUNT);
 		},
 		[AUTH_CHECK]({ commit }) {
 			if (getLocalStorageToken()) {

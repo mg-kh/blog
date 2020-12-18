@@ -1,5 +1,6 @@
 <template>
 	<b-button class="mr-2" variant="primary" @click="clickHandler">
+		<b-icon-brush></b-icon-brush>
 		Publish Post
 	</b-button>
 </template>

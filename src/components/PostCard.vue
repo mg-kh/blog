@@ -15,7 +15,8 @@
 					<small>No Posts Yet...</small>
 				</b-col>
 			</template>
-
+		</b-row>
+		<b-row>
 			<template>
 				<b-col>
 					<the-pagination
@@ -90,8 +91,16 @@ export default {
 
 		async fetchNewPost() {
 			this.loading = true;
+			this.$swal({
+				icon: "question",
+				toast: false,
+				position: "center",
+				showConfirmButton: false,
+				title: "Loading Content",
+			});
 			await this.fetchPost(this.queryString);
 			this.loading = false;
+			this.$swal.close();
 		},
 	},
 };

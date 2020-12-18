@@ -1,6 +1,6 @@
 <template>
-	<b-col cols="12">
-		<b-card class="mb-3" v-if="!showPlaceholder">
+	<b-col cols="12" md="4">
+		<b-card class="mb-3 previewCard" v-if="!showPlaceholder">
 			<article class="d-flex mb-3">
 				<div class="mr-2">
 					<img
@@ -29,7 +29,9 @@
 						@click="toggleFavourite"
 						:status="isFavoritedClass"
 					>
-						Like
+						<b-icon-heart-fill
+							class="mr-2"
+						></b-icon-heart-fill>
 						<b-badge variant="light">{{
 							post.favoritesCount
 						}}</b-badge>
@@ -50,24 +52,12 @@
 						:to="{ path: '/post/' + post.slug }"
 						size="sm"
 						href="#"
-						variant="secondary"
+						class="readMore"
 						>Read More</b-button
 					>
-					<div>
-						<b-badge class="m-1" variant="secondary"
-							>Secondary</b-badge
-						>
-						<b-badge class="m-1" variant="secondary"
-							>Secondary</b-badge
-						>
-					</div>
 				</b-row>
 			</b-container>
 		</b-card>
-
-		<section v-else>
-			<h1>loading</h1>
-		</section>
 	</b-col>
 </template>
 
@@ -93,7 +83,7 @@ export default {
 	},
 	computed: {
 		isFavoritedClass() {
-			return this.post.favorited ? "primary" : "secondary";
+			return this.post.favorited ? "danger" : "bg-transparent";
 		},
 		profileImage() {
 			if (
@@ -108,6 +98,7 @@ export default {
 			}
 		},
 	},
+
 	methods: {
 		...mapActions({
 			favourite: FAVOURITE_POST,

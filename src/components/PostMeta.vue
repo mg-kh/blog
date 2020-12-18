@@ -3,7 +3,7 @@
 		<article class="d-flex mb-3">
 			<div class="mr-2">
 				<img
-					:src="post.author.image"
+					:src="profileImage"
 					alt="profile"
 					class="rounded-circle"
 					style="width: 50px; height: 50px"
@@ -49,14 +49,16 @@
 					class="mr-2"
 					@click="handleFollow"
 					:status="isFollowed"
-					>{{ buttonFollowText }}
+				>
+					<b-icon-cursor></b-icon-cursor>
+					{{ buttonFollowText }}
 				</the-favourite-button>
 
 				<the-favourite-button
 					@click="handlerFavorite"
 					:status="isFavoritedClass"
 				>
-					Like
+					<b-icon-heart-fill class="mr-2"></b-icon-heart-fill>
 					<b-badge variant="light">{{
 						post.favoritesCount
 					}}</b-badge>
@@ -95,16 +97,28 @@ export default {
 			return this.user.username === this.post.author.username;
 		},
 		isFavoritedClass() {
-			return this.post.favorited ? "primary" : "secondary";
+			return this.post.favorited ? "danger" : "bg-transparent";
 		},
 		isFollowed() {
-			return this.post.author.following ? "danger" : "secondary";
+			return this.post.author.following ? "success" : "secondary";
 		},
 		isLogin() {
 			return this.user.username;
 		},
 		buttonFollowText() {
 			return this.post.author.following ? "Unfollow" : "Follow";
+		},
+		profileImage() {
+			if (
+				this.post.author.image ===
+				"https://static.productionready.io/images/smiley-cyrus.jpg"
+			) {
+				return "https://i.imgur.com/cUZroJx.png";
+			} else if (!this.post.author.image) {
+				return "https://i.imgur.com/cUZroJx.png";
+			} else {
+				return this.post.author.image;
+			}
 		},
 	},
 	methods: {

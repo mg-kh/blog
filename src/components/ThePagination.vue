@@ -1,5 +1,5 @@
 <template>
-	<div class="overflow-auto" v-if="pageCount > 1">
+	<div class="overflow-auto thePagination" v-if="pageCount > 1">
 		<div class="mt-3">
 			<b-pagination
 				v-model="currentPage"

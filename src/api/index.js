@@ -52,15 +52,42 @@ export default API_SERVICE;
 
 export const Auth = {
 	register(user) {
+		Vue.swal({
+			timer: 3000,
+			icon: "success",
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timerProgressBar: true,
+			title: "Account Register successfully",
+		});
 		return API_SERVICE.post("users", user);
 	},
 	login(user) {
+		Vue.swal({
+			timer: 3000,
+			icon: "success",
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timerProgressBar: true,
+			title: "Login successfully",
+		});
 		return API_SERVICE.post("users/login", user);
 	},
 	get() {
 		return API_SERVICE.get("user");
 	},
 	updateProfile(user) {
+		Vue.swal({
+			timer: 3000,
+			icon: "success",
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timerProgressBar: true,
+			title: "Profile Update successfully",
+		});
 		return API_SERVICE.put("user", { user });
 	},
 };
@@ -76,29 +103,90 @@ export const Post = {
 		return API_SERVICE.get(`/articles/${slug}`);
 	},
 	createPost(article) {
+		Vue.swal({
+			timer: 3000,
+			icon: "success",
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timerProgressBar: true,
+			title: "Create post successfully",
+		});
 		return API_SERVICE.post("articles", { article });
 	},
 	favourite(slug) {
+		Vue.swal({
+			timer: 3000,
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timerProgressBar: true,
+			title: "Yor Like It!",
+		});
 		return API_SERVICE.post(`articles/${slug}/favorite`);
 	},
 	unfavourite(slug) {
+		Vue.swal({
+			timer: 3000,
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timerProgressBar: true,
+			title: "You don't like it?",
+		});
 		return API_SERVICE.delete(`articles/${slug}/favorite`);
 	},
 	updatePost(slug, article) {
+		Vue.swal({
+			timer: 3000,
+			icon: "success",
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timerProgressBar: true,
+			title: "Update post successfully",
+		});
 		return API_SERVICE.put(`articles/${slug}`, { article });
 	},
 	deletePost(slug) {
+		Vue.swal({
+			timer: 3000,
+			icon: "success",
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timerProgressBar: true,
+			title: "Delete post successfully",
+		});
 		return API_SERVICE.delete(`articles/${slug}`);
 	},
 	getComment(slug) {
 		return API_SERVICE.get(`articles/${slug}/comments`);
 	},
 	addComment(slug, comment) {
+		Vue.swal({
+			timer: 3000,
+			icon: "success",
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timerProgressBar: true,
+			title: "Add Comment successfully",
+		});
 		return API_SERVICE.post(`articles/${slug}/comments`, {
 			comment: { body: comment },
 		});
 	},
 	deleteComment(slug, id) {
+		Vue.swal({
+			timer: 3000,
+			icon: "success",
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timerProgressBar: true,
+			title: "Delete comment successfully",
+		});
 		return API_SERVICE.delete(`articles/${slug}/comments/${id}`);
 	},
 };
@@ -108,9 +196,25 @@ export const Profile = {
 		return API_SERVICE.get(`profiles/${username}`);
 	},
 	follow(username) {
+		Vue.swal({
+			timer: 3000,
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timerProgressBar: true,
+			title: "Start fllowing...",
+		});
 		return API_SERVICE.post(`profiles/${username}/follow`);
 	},
 	unFollow(username) {
+		Vue.swal({
+			timer: 3000,
+			toast: true,
+			position: "top-end",
+			showConfirmButton: false,
+			timerProgressBar: true,
+			title: "Unfollow user..",
+		});
 		return API_SERVICE.delete(`profiles/${username}/follow`);
 	},
 };

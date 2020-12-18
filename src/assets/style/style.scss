@@ -1,3 +1,139 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "../../../node_modules/bootstrap-vue/src/index.scss";
+
+$green: #38f926;
+body {
+	background-color: #f1f1f1;
+}
+
+.home-banner {
+	background-image: url("../images/home_banner.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.profile-banner {
+	background-image: url("../images/profile_banner.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.nav-bar-bg {
+	transition: all 0.3s;
+	background-color: #007bffc2 !important;
+}
+
+.loginForm {
+	max-width: 300px;
+	margin: auto;
+	padding: 30px 0px;
+	position: relative;
+	border: none;
+	border-radius: 10px;
+	transition: all 0.3s;
+	h3 {
+		color: $green;
+	}
+	&:hover {
+		box-shadow: 0px 0px 6px 5px #e1e1e1;
+	}
+	button {
+		background-color: $green;
+		border: none;
+		&:hover {
+			background-color: darken($green, 10);
+		}
+	}
+
+	img {
+		width: 100px;
+		display: block;
+		margin: 0pc auto 20px;
+	}
+}
+
+.regForm {
+	max-width: 300px;
+	margin: auto;
+	padding: 20px 0px;
+	position: relative;
+	border: none;
+	border-radius: 10px;
+	transition: all 0.3s;
+	h3 {
+		color: $green;
+	}
+	&:hover {
+		box-shadow: 0px 0px 6px 5px #e1e1e1;
+	}
+	button {
+		background-color: $green;
+		border: none;
+		&:hover {
+			background-color: darken($green, 10);
+		}
+	}
+
+	img {
+		width: 100px;
+		display: block;
+		margin: 0pc auto 20px;
+	}
+}
+
+.setting-card-container {
+	.setting {
+		width: 100%;
+		height: 100%;
+		background-image: url("https://i.picsum.photos/id/1050/6000/4000.jpg?hmac=HhCXFcOrIrNguK7GqP6VhICXPa5FmcLZdug505qiEZM");
+		background-size: cover;
+		background-position: center;
+		filter: blur(4px) grayscale(2);
+		transition: all 0.5s;
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+	}
+
+	&:hover .setting {
+		filter: blur(0px);
+	}
+
+	.setting-card {
+		h3 {
+			color: $green;
+		}
+		button {
+			background-color: $green;
+			border: none;
+		}
+	}
+}
+
+.previewCard {
+	transition: all 0.3s;
+	&:hover {
+		margin-top: -5px;
+		box-shadow: 0px 5px 2px 0px #ababab;
+	}
+	.readMore {
+		background-color: $green;
+		border: none;
+	}
+}
+
+.thePagination {
+	margin-bottom: 80px;
+}
+
+.footer {
+	padding: 5px 0px;
+	background-color: #373737;
+	color: white;
+	font-size: 15px;
+	text-align: right;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	z-index: 1000;
+}

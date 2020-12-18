@@ -1,16 +1,20 @@
 <template>
 	<section>
-		<b-jumbotron>
-			<b-container>
-				<b-row>
-					<b-col>
-						<h2>{{ post.data.title }}</h2>
-						<p class="lead">{{ post.data.description }}</p>
-						<post-meta :post="post.data"></post-meta>
-					</b-col>
-				</b-row>
-			</b-container>
-		</b-jumbotron>
+		<div class="profile-banner">
+			<b-jumbotron class="bg-transparent text-white">
+				<b-container>
+					<b-row>
+						<b-col>
+							<h2>{{ post.data.title }}</h2>
+							<p class="lead">
+								{{ post.data.description }}
+							</p>
+							<post-meta :post="post.data"></post-meta>
+						</b-col>
+					</b-row>
+				</b-container>
+			</b-jumbotron>
+		</div>
 		<b-container>
 			<b-row>
 				<b-col>
@@ -55,6 +59,13 @@ export default {
 	components: { PostContent, PostMeta, CommentEditor, ListComment },
 	created() {
 		this.isLoadingPost = true;
+		this.$swal({
+			icon: "question",
+			timer: 1000,
+			showConfirmButton: false,
+			position: "center",
+			title: "Fetching Data",
+		});
 		this.fetchPost(this.slug).then(() => {
 			this.isLoadingPost = false;
 		});
