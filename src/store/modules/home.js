@@ -1,6 +1,10 @@
-import { FETCH_ALL_POST } from "@/store/action.types";
-import { HomePost } from "@/api/index";
-import { SET_POSTS, UPDATE_LIST_ARTICLE } from "@/store/mutation.actions";
+import { FETCH_ALL_POST, FETCH_TAGS } from "@/store/action.types";
+import { HomePost, TagsService } from "@/api/index";
+import {
+	SET_POSTS,
+	UPDATE_LIST_ARTICLE,
+	SET_TAGS,
+} from "@/store/mutation.actions";
 
 export const homePosts = {
 	state: {
@@ -45,12 +49,22 @@ export const homePosts = {
 				});
 			});
 		},
+		[SET_TAGS](state, tags) {
+			state.tags = {
+				data: tags,
+				error: "",
+			};
+		},
 	},
 	actions: {
 		async [FETCH_ALL_POST]({ commit }, params) {
 			const { data } = await HomePost.get(params);
 			const { articles, articlesCount } = data;
 			commit(SET_POSTS, { articles, articlesCount });
+		},
+		async [FETCH_TAGS]({ commit }) {
+			const { data } = await TagsService.get();
+			commit(SET_TAGS, data.tags);
 		},
 	},
 };

@@ -4,7 +4,7 @@
 			<b-pagination
 				v-model="currentPage"
 				:total-rows="pageCount"
-				:per-page="limit"
+				:per-page="1"
 				first-number
 				last-number
 				@change="changePage(currentPage)"

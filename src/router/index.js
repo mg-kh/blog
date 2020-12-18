@@ -8,6 +8,7 @@ const Register = import(/* webpackChunkName: "register" */ "@/views/Register");
 const Login = import(/* webpackChunkName: "login" */ "@/views/Login");
 const NewFeed = import(/* webpackChunkName: "newfeed" */ "@/views/NewFeed");
 const Post = import(/* webpackChunkName: "newfeed" */ "@/views/Post");
+const HomeTag = import(/* webpackChunkName: "newfeed" */ "@/views/HomeTag");
 const ProfileFavourite = import(
 	/* webpackChunkName: "profile-favourite" */ "@/views/ProfileFavourite"
 );
@@ -27,6 +28,7 @@ const routes = [
 				name: "Home",
 				component: () => NewFeed,
 			},
+			{ path: "tag/:tag", component: () => HomeTag, props: true },
 		],
 	},
 	{

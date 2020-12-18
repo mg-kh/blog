@@ -218,3 +218,9 @@ export const Profile = {
 		return API_SERVICE.delete(`profiles/${username}/follow`);
 	},
 };
+
+export const TagsService = {
+	get() {
+		return API_SERVICE.get("tags");
+	},
+};
