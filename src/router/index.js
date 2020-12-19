@@ -7,6 +7,9 @@ const Setting = import(/* webpackChunkName: "setting" */ "@/views/Setting");
 const Register = import(/* webpackChunkName: "register" */ "@/views/Register");
 const Login = import(/* webpackChunkName: "login" */ "@/views/Login");
 const NewFeed = import(/* webpackChunkName: "newfeed" */ "@/views/NewFeed");
+const FollowFeed = import(
+	/* webpackChunkName: "newfeed" */ "@/views/FollowFeed"
+);
 const Post = import(/* webpackChunkName: "newfeed" */ "@/views/Post");
 const HomeTag = import(/* webpackChunkName: "newfeed" */ "@/views/HomeTag");
 const ProfileFavourite = import(
@@ -27,6 +30,11 @@ const routes = [
 				path: "/",
 				name: "Home",
 				component: () => NewFeed,
+			},
+			{
+				path: "feed",
+				component: () => FollowFeed,
+				meta: { requiresAuth: true },
 			},
 			{ path: "tag/:tag", component: () => HomeTag, props: true },
 		],
@@ -52,11 +60,13 @@ const routes = [
 		path: "/setting",
 		name: "Setting",
 		component: () => Setting,
+		meta: { requiresAuth: true },
 	},
 	{
 		path: "/editor/:slug?",
 		name: "Editor",
 		props: true,
+		meta: { requiresAuth: true },
 		component: () => Editor,
 	},
 	{

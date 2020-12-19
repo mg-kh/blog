@@ -1,4 +1,8 @@
-import { FETCH_ALL_POST, FETCH_TAGS } from "@/store/action.types";
+import {
+	FETCH_ALL_POST,
+	FETCH_TAGS,
+	FETCH_FOLLOW_POST,
+} from "@/store/action.types";
 import { HomePost, TagsService } from "@/api/index";
 import {
 	SET_POSTS,
@@ -59,6 +63,11 @@ export const homePosts = {
 	actions: {
 		async [FETCH_ALL_POST]({ commit }, params) {
 			const { data } = await HomePost.get(params);
+			const { articles, articlesCount } = data;
+			commit(SET_POSTS, { articles, articlesCount });
+		},
+		async [FETCH_FOLLOW_POST]({ commit }, params) {
+			const { data } = await HomePost.getFeed(params);
 			const { articles, articlesCount } = data;
 			commit(SET_POSTS, { articles, articlesCount });
 		},

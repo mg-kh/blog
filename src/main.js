@@ -15,11 +15,22 @@ Vue.use(IconsPlugin);
 Vue.use(VueSweetalert2);
 API_SERVICE.init();
 
-// router.beforeEach((to, from, next) => {
-// 	const { user } = store.state.auth;
-// 	console.log(user);
-// 	next();
-// });
+router.beforeEach((to, from, next) => {
+	const { user } = store.state.auth;
+	if (to.matched.some((record) => record.meta.requiresAuth)) {
+		if (!user.username) {
+			next({
+				name: "Login",
+				query: { redirect: to.fullPath },
+			});
+		} else {
+			next();
+		}
+	} else {
+		next();
+	}
+});
+
 store.dispatch("AUTH_CHECK");
 
 new Vue({

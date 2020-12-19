@@ -79,7 +79,10 @@ export default {
 						timerProgressBar: true,
 						title: "Log in successfully",
 					});
-					this.$router.push({ name: "Home" });
+
+					const { redirect } = this.$route.query;
+					if (redirect) this.$router.push({ path: redirect });
+					else this.$router.push({ name: "Home" });
 				});
 		},
 	},

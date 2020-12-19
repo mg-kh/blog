@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { FETCH_ALL_POST } from "@/store/action.types";
+import { FETCH_ALL_POST, FETCH_FOLLOW_POST } from "@/store/action.types";
 import { mapActions } from "vuex";
 import ThePagination from "@/components/ThePagination";
 import PostPreview from "@/components/PostPreview";
@@ -46,6 +46,10 @@ export default {
 			default() {
 				return {};
 			},
+		},
+		feed: {
+			type: Boolean,
+			default: false,
 		},
 	},
 	data() {
@@ -87,6 +91,7 @@ export default {
 	methods: {
 		...mapActions({
 			fetchPost: FETCH_ALL_POST,
+			fetchFollowPost: FETCH_FOLLOW_POST,
 		}),
 
 		async fetchNewPost() {
@@ -98,7 +103,11 @@ export default {
 				showConfirmButton: false,
 				title: "Loading Content",
 			});
-			await this.fetchPost(this.queryString);
+			if (!this.feed) {
+				await this.fetchPost(this.queryString);
+			} else {
+				await this.fetchFollowPost(this.queryString);
+			}
 			this.loading = false;
 			this.$swal.close();
 		},

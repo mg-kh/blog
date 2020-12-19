@@ -96,6 +96,9 @@ export const HomePost = {
 	get(params) {
 		return API_SERVICE.query("articles", params);
 	},
+	getFeed(params) {
+		return API_SERVICE.query("articles/feed", params);
+	},
 };
 
 export const Post = {
@@ -103,49 +106,15 @@ export const Post = {
 		return API_SERVICE.get(`/articles/${slug}`);
 	},
 	createPost(article) {
-		Vue.swal({
-			timer: 3000,
-			icon: "success",
-			toast: true,
-			position: "top-end",
-			showConfirmButton: false,
-			timerProgressBar: true,
-			title: "Create post successfully",
-		});
 		return API_SERVICE.post("articles", { article });
 	},
 	favourite(slug) {
-		Vue.swal({
-			timer: 3000,
-			toast: true,
-			position: "top-end",
-			showConfirmButton: false,
-			timerProgressBar: true,
-			title: "Yor Like It!",
-		});
 		return API_SERVICE.post(`articles/${slug}/favorite`);
 	},
 	unfavourite(slug) {
-		Vue.swal({
-			timer: 3000,
-			toast: true,
-			position: "top-end",
-			showConfirmButton: false,
-			timerProgressBar: true,
-			title: "You don't like it?",
-		});
 		return API_SERVICE.delete(`articles/${slug}/favorite`);
 	},
 	updatePost(slug, article) {
-		Vue.swal({
-			timer: 3000,
-			icon: "success",
-			toast: true,
-			position: "top-end",
-			showConfirmButton: false,
-			timerProgressBar: true,
-			title: "Update post successfully",
-		});
 		return API_SERVICE.put(`articles/${slug}`, { article });
 	},
 	deletePost(slug) {
@@ -164,29 +133,11 @@ export const Post = {
 		return API_SERVICE.get(`articles/${slug}/comments`);
 	},
 	addComment(slug, comment) {
-		Vue.swal({
-			timer: 3000,
-			icon: "success",
-			toast: true,
-			position: "top-end",
-			showConfirmButton: false,
-			timerProgressBar: true,
-			title: "Add Comment successfully",
-		});
 		return API_SERVICE.post(`articles/${slug}/comments`, {
 			comment: { body: comment },
 		});
 	},
 	deleteComment(slug, id) {
-		Vue.swal({
-			timer: 3000,
-			icon: "success",
-			toast: true,
-			position: "top-end",
-			showConfirmButton: false,
-			timerProgressBar: true,
-			title: "Delete comment successfully",
-		});
 		return API_SERVICE.delete(`articles/${slug}/comments/${id}`);
 	},
 };

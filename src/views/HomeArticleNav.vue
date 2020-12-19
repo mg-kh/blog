@@ -2,7 +2,9 @@
 	<section>
 		<b-nav pills class="mb-3">
 			<b-nav-item active :to="{ path: '/' }">New Feed</b-nav-item>
-			<b-nav-item v-if="isLogin">Follow</b-nav-item>
+			<b-nav-item v-if="isLogin" :to="{ path: '/feed' }"
+				>Follow</b-nav-item
+			>
 			<b-nav-item
 				v-if="$route.params.tag"
 				:to="{ path: '/tag/' + $route.params.tag }"

@@ -1,5 +1,5 @@
 <template>
-	<b-col cols="12" md="4">
+	<b-col cols="12">
 		<b-card class="mb-3 previewCard" v-if="!showPlaceholder">
 			<article class="d-flex mb-3">
 				<div class="mr-2">
