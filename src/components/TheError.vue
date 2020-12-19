@@ -2,7 +2,7 @@
 	<section>
 		<b-modal id="loading" hide-footer>
 			<template #modal-title>
-				Opps!
+				Sorry! <span style="font-size:30px;">&#128532;</span>
 			</template>
 			<div class="d-block text-center">
 				<b-list-group
@@ -21,7 +21,7 @@
 				</b-list-group>
 			</div>
 			<b-button class="mt-3" block @click="$bvModal.hide('loading')"
-				>Ok</b-button
+				>Got It !</b-button
 			>
 		</b-modal>
 	</section>

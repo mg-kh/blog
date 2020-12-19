@@ -26,10 +26,32 @@
 		<b-container>
 			<b-row>
 				<b-col cols="12">
-					<comment-editor
-						:slug="post.data.slug"
-						:author="post.data.author"
-					></comment-editor>
+					<template v-if="isLogin">
+						<comment-editor
+							:slug="post.data.slug"
+							:author="post.data.author"
+						></comment-editor>
+					</template>
+					<template v-else>
+						<div class="text-center mt-4">
+							<span>
+								<router-link
+									class="text-success"
+									:to="{ name: 'Login' }"
+									>Login</router-link
+								>
+							</span>
+							Or
+							<span>
+								<router-link
+									class="text-success"
+									:to="{ name: 'Register' }"
+									>Register</router-link
+								>
+							</span>
+							to comment on this post.
+						</div>
+					</template>
 				</b-col>
 				<b-col cols="12">
 					<list-comment
@@ -60,14 +82,16 @@ export default {
 	created() {
 		this.isLoadingPost = true;
 		this.$swal({
-			icon: "question",
-			timer: 1000,
-			showConfirmButton: false,
+			imageUrl: "https://i.imgur.com/cD0XBVZ.gif",
+			toast: true,
+			toast: false,
 			position: "center",
-			title: "Fetching Data",
+			showConfirmButton: false,
+			title: "Loading...",
 		});
 		this.fetchPost(this.slug).then(() => {
 			this.isLoadingPost = false;
+			this.$swal.close();
 		});
 		this.fetchComment(this.slug);
 	},
@@ -76,6 +100,9 @@ export default {
 			post: (state) => state.post.article,
 			comment: (state) => state.post.comments,
 		}),
+		isLogin() {
+			return this.$store.state.auth.isLogin;
+		},
 	},
 	methods: {
 		...mapActions({

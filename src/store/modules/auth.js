@@ -71,7 +71,6 @@ export const auth = {
 		[UPDATE_PROFILE]({ commit, state }, user) {
 			let { email, username, password, image, bio } = user;
 			if (!password) password = state.user.password;
-			console.log(user);
 			return Auth.updateProfile({
 				email,
 				username,

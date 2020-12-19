@@ -45,24 +45,28 @@
 				>
 			</div>
 			<div class="d-flex align-items-center" v-else>
-				<the-favourite-button
-					class="mr-2"
-					@click="handleFollow"
-					:status="isFollowed"
-				>
-					<b-icon-cursor></b-icon-cursor>
-					{{ buttonFollowText }}
-				</the-favourite-button>
+				<template v-if="isLogin">
+					<the-favourite-button
+						class="mr-2"
+						@click="handleFollow"
+						:status="isFollowed"
+					>
+						<b-icon-cursor></b-icon-cursor>
+						{{ buttonFollowText }}
+					</the-favourite-button>
 
-				<the-favourite-button
-					@click="handlerFavorite"
-					:status="isFavoritedClass"
-				>
-					<b-icon-heart-fill class="mr-2"></b-icon-heart-fill>
-					<b-badge variant="light">{{
-						post.favoritesCount
-					}}</b-badge>
-				</the-favourite-button>
+					<the-favourite-button
+						@click="handlerFavorite"
+						:status="isFavoritedClass"
+					>
+						<b-icon-heart-fill
+							class="mr-2"
+						></b-icon-heart-fill>
+						<b-badge variant="light">{{
+							post.favoritesCount
+						}}</b-badge>
+					</the-favourite-button>
+				</template>
 			</div>
 		</article>
 	</section>
