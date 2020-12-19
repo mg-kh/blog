@@ -23,12 +23,24 @@ export default {
 							const metaTag = document.createElement(
 								"meta"
 							);
-							metaTag.setAttribute("name", meta.name);
-							metaTag.setAttribute(
-								"content",
-								meta.content
-							);
+							if (meta.name == "description") {
+								metaTag.setAttribute("name", meta.name);
+								metaTag.setAttribute(
+									"content",
+									meta.content
+								);
+							} else {
+								metaTag.setAttribute(
+									"property",
+									meta.name
+								);
+								metaTag.setAttribute(
+									"content",
+									meta.content
+								);
+							}
 							document.head.appendChild(metaTag);
+							console.log(document.head);
 						});
 					}
 				}
