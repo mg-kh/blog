@@ -17,6 +17,22 @@ API_SERVICE.init();
 
 router.beforeEach((to, from, next) => {
 	const { user } = store.state.auth;
+	document.title = to.meta.title;
+	const metaArr = to.meta.metaTags;
+	if (metaArr) {
+		metaArr.forEach((meta) => {
+			const metaTag = document.createElement("meta");
+			if (meta.name == "description") {
+				metaTag.setAttribute("name", meta.name);
+				metaTag.setAttribute("content", meta.content);
+			} else {
+				metaTag.setAttribute("property", meta.name);
+				metaTag.setAttribute("content", meta.content);
+			}
+			document.head.appendChild(metaTag);
+		});
+	}
+
 	if (to.matched.some((record) => record.meta.requiresAuth)) {
 		if (!user.username) {
 			next({
