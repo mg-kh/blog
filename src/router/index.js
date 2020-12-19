@@ -30,6 +30,27 @@ const routes = [
 				path: "/",
 				name: "Home",
 				component: () => NewFeed,
+				meta: {
+					title: "Blog",
+					metaTags: [
+						{
+							name: "description",
+							content: "This is simple blog system",
+						},
+						{
+							name: "og:image",
+							content: "https://i.imgur.com/jrElvBv.png",
+						},
+						{
+							name: "og:description",
+							content: "This is simple blog system",
+						},
+						{
+							name: "og:title",
+							content: "Vue Blog",
+						},
+					],
+				},
 			},
 			{
 				path: "feed",
@@ -60,13 +81,19 @@ const routes = [
 		path: "/setting",
 		name: "Setting",
 		component: () => Setting,
-		meta: { requiresAuth: true },
+		meta: {
+			title: "User Setting",
+			requiresAuth: true,
+		},
 	},
 	{
 		path: "/editor/:slug?",
 		name: "Editor",
 		props: true,
-		meta: { requiresAuth: true },
+		meta: {
+			title: "Post Editor",
+			requiresAuth: true,
+		},
 		component: () => Editor,
 	},
 	{
@@ -79,11 +106,17 @@ const routes = [
 		path: "/register",
 		name: "Register",
 		component: () => Register,
+		meta: {
+			title: "Register",
+		},
 	},
 	{
 		path: "/log-in",
 		name: "Login",
 		component: () => Login,
+		meta: {
+			title: "Log In",
+		},
 	},
 ];
 
