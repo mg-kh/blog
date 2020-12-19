@@ -36,9 +36,7 @@
 			<b-row>
 				<b-col>
 					<b-nav pills class="mb-3">
-						<b-nav-item
-							active
-							:to="{ name: 'ProfileArticle' }"
+						<b-nav-item :to="{ name: 'ProfileArticle' }"
 							>All Posts</b-nav-item
 						>
 						<b-nav-item :to="{ name: 'ProfileFavourite' }"

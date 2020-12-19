@@ -1,7 +1,7 @@
 <template>
 	<section>
 		<b-nav pills class="mb-3">
-			<b-nav-item active :to="{ path: '/' }">New Feed</b-nav-item>
+			<b-nav-item :to="{ path: '/' }">New Feed</b-nav-item>
 			<b-nav-item v-if="isLogin" :to="{ path: '/feed' }"
 				>Follow</b-nav-item
 			>
