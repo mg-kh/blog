@@ -52,38 +52,39 @@
 				</b-col>
 			</b-row>
 		</b-container>
+		<the-error :errors="errors"></the-error>
 	</section>
 </template>
 
 <script>
 import { LOGIN } from "@/store/action.types";
+import TheError from "@/components/TheError";
+import { mapActions } from "vuex";
 export default {
 	data() {
 		return {
 			email: "",
 			password: "",
+			errors: {},
 		};
 	},
+	components: {
+		TheError,
+	},
 	methods: {
-		login() {
+		...mapActions({
+			loginAccount: LOGIN,
+		}),
+		async login() {
 			const { email, password } = this;
-			this.$store
-				.dispatch(LOGIN, { user: { email, password } })
-				.then(() => {
-					this.$swal({
-						timer: 3000,
-						icon: "success",
-						toast: true,
-						position: "top-end",
-						showConfirmButton: false,
-						timerProgressBar: true,
-						title: "Log in successfully",
-					});
-
-					const { redirect } = this.$route.query;
-					if (redirect) this.$router.push({ path: redirect });
-					else this.$router.push({ name: "Home" });
-				});
+			try {
+				await this.loginAccount({ user: { email, password } });
+				const { redirect } = this.$route.query;
+				if (redirect) this.$router.push({ path: redirect });
+				else this.$router.push({ name: "Home" });
+			} catch ({ response }) {
+				this.errors = response.data.errors;
+			}
 		},
 	},
 };

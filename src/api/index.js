@@ -52,42 +52,15 @@ export default API_SERVICE;
 
 export const Auth = {
 	register(user) {
-		Vue.swal({
-			timer: 3000,
-			icon: "success",
-			toast: true,
-			position: "top-end",
-			showConfirmButton: false,
-			timerProgressBar: true,
-			title: "Account Register successfully",
-		});
 		return API_SERVICE.post("users", user);
 	},
 	login(user) {
-		Vue.swal({
-			timer: 3000,
-			icon: "success",
-			toast: true,
-			position: "top-end",
-			showConfirmButton: false,
-			timerProgressBar: true,
-			title: "Login successfully",
-		});
 		return API_SERVICE.post("users/login", user);
 	},
 	get() {
 		return API_SERVICE.get("user");
 	},
 	updateProfile(user) {
-		Vue.swal({
-			timer: 3000,
-			icon: "success",
-			toast: true,
-			position: "top-end",
-			showConfirmButton: false,
-			timerProgressBar: true,
-			title: "Profile Update successfully",
-		});
 		return API_SERVICE.put("user", { user });
 	},
 };

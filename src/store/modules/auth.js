@@ -42,31 +42,17 @@ export const auth = {
 	},
 	actions: {
 		[REGISTER]({ commit }, user) {
-			return new Promise((res, rej) => {
-				Auth.register(user)
-					.then(({ data }) => {
-						commit(SET_ACCOUNT, data.user);
-						setLocalStorageToken(data.user.token);
-						API_SERVICE.setHeader();
-						res();
-					})
-					.catch(({ response }) => {
-						console.log(response);
-					});
+			return Auth.register(user).then(({ data }) => {
+				commit(SET_ACCOUNT, data.user);
+				setLocalStorageToken(data.user.token);
+				API_SERVICE.setHeader();
 			});
 		},
 		[LOGIN]({ commit }, user) {
-			return new Promise((res, rej) => {
-				Auth.login(user)
-					.then(({ data }) => {
-						commit(SET_ACCOUNT, data.user);
-						setLocalStorageToken(data.user.token);
-						API_SERVICE.setHeader();
-						res();
-					})
-					.catch(({ response }) => {
-						console.log(response);
-					});
+			return Auth.login(user).then(({ data }) => {
+				commit(SET_ACCOUNT, data.user);
+				setLocalStorageToken(data.user.token);
+				API_SERVICE.setHeader();
 			});
 		},
 		[LOGOUT]({ commit }) {

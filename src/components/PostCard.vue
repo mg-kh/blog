@@ -97,11 +97,12 @@ export default {
 		async fetchNewPost() {
 			this.loading = true;
 			this.$swal({
-				icon: "question",
+				imageUrl: "https://i.imgur.com/cD0XBVZ.gif",
+				toast: true,
 				toast: false,
 				position: "center",
 				showConfirmButton: false,
-				title: "Loading Content",
+				title: "Loading...",
 			});
 			if (!this.feed) {
 				await this.fetchPost(this.queryString);

@@ -29,6 +29,7 @@ router.beforeEach((to, from, next) => {
 				metaTag.setAttribute("property", meta.name);
 				metaTag.setAttribute("content", meta.content);
 			}
+			// document.body.appendChild(metaTag);
 			document.head.appendChild(metaTag);
 		});
 	}

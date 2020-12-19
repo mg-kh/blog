@@ -50,6 +50,7 @@
 				</b-col>
 			</b-row>
 		</b-container>
+		<the-error :errors="errors"></the-error>
 	</section>
 </template>
 
@@ -59,6 +60,7 @@ import { VueEditor } from "vue2-editor";
 import store from "@/store";
 import TheButton from "@/components/TheButton";
 import TheInputTag from "@/components/TheInputTag";
+import TheError from "@/components/TheError";
 import { CREATE_POST, FETCH_POST, UPDATE_POST } from "@/store/action.types";
 export default {
 	props: {
@@ -124,6 +126,7 @@ export default {
 		TheButton,
 		TheInputTag,
 		VueEditor,
+		TheError,
 	},
 	computed: {
 		...mapState({
@@ -169,6 +172,15 @@ export default {
 						slug,
 						article: { title, description, body, tagList },
 					});
+					this.$swal({
+						timer: 3000,
+						icon: "success",
+						toast: true,
+						position: "top-end",
+						showConfirmButton: false,
+						timerProgressBar: true,
+						title: "Post update successfully",
+					});
 				} else {
 					post = await this.createPost({
 						title,
@@ -176,15 +188,12 @@ export default {
 						body,
 						tagList,
 					});
+					this.$router.push({
+						name: "Home",
+					});
 				}
-				this.$router.push({
-					name: "Post",
-					params: {
-						slug: post.data.article.slug,
-					},
-				});
 			} catch ({ response }) {
-				// this.errors = response.data.errors;
+				this.errors = response.data.errors;
 			}
 		},
 	},

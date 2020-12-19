@@ -56,29 +56,40 @@
 				</b-col>
 			</b-row>
 		</b-container>
+		<the-error :errors="errors"></the-error>
 	</section>
 </template>
 
 <script>
 import { REGISTER, LOGOUT } from "@/store/action.types";
+import TheError from "@/components/TheError";
+import { mapActions } from "vuex";
 export default {
 	data() {
 		return {
 			username: "",
 			email: "",
 			password: "",
+			errors: {},
 		};
 	},
+	components: {
+		TheError,
+	},
 	methods: {
-		register() {
-			const { username, email, password } = this;
-			this.$store
-				.dispatch(REGISTER, { user: { username, email, password } })
-				.then(() => {
-					this.$router.push({
-						name: "Home",
-					});
+		...mapActions({
+			registerAccount: REGISTER,
+		}),
+		async register() {
+			try {
+				const { username, email, password } = this;
+				await this.registerAccount({
+					user: { username, email, password },
 				});
+				this.$router.push({ name: "Home" });
+			} catch ({ response }) {
+				this.errors = response.data.errors;
+			}
 		},
 		logout() {
 			this.$store.dispatch(LOGOUT);

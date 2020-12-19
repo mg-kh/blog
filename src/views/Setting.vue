@@ -90,11 +90,13 @@
 				</b-col>
 			</b-row>
 		</b-container>
+		<the-error :errors="errors"></the-error>
 	</section>
 </template>
 
 <script>
 import { UPDATE_PROFILE } from "@/store/action.types";
+import TheError from "@/components/TheError";
 export default {
 	data() {
 		return {
@@ -105,7 +107,11 @@ export default {
 				email: "",
 				password: "",
 			},
+			errors: {},
 		};
+	},
+	components: {
+		TheError,
 	},
 	computed: {
 		currentUser() {
@@ -118,11 +124,22 @@ export default {
 	},
 	methods: {
 		updateProfile() {
-			this.$store.dispatch(UPDATE_PROFILE, this.user).then(() => {
-				this.$router.push({
-					name: "Home",
+			this.$store
+				.dispatch(UPDATE_PROFILE, this.user)
+				.then(() => {
+					this.$swal({
+						timer: 3000,
+						icon: "success",
+						toast: true,
+						position: "top-end",
+						showConfirmButton: false,
+						timerProgressBar: true,
+						title: "Update profile successfully!",
+					});
+				})
+				.catch(({ response }) => {
+					this.errors = response.data.errors;
 				});
-			});
 		},
 	},
 };
