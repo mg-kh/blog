@@ -56,8 +56,18 @@ const routes = [
 				path: "feed",
 				component: () => FollowFeed,
 				meta: { requiresAuth: true },
+				meta: {
+					title: "Followed",
+				},
 			},
-			{ path: "tag/:tag", component: () => HomeTag, props: true },
+			{
+				path: "tag/:tag",
+				meta: {
+					title: "Tag",
+				},
+				component: () => HomeTag,
+				props: true,
+			},
 		],
 	},
 	{
@@ -69,11 +79,17 @@ const routes = [
 				path: "",
 				name: "ProfileArticle",
 				component: () => ProfileArticle,
+				meta: {
+					title: "Profile",
+				},
 			},
 			{
 				path: "favourite",
 				name: "ProfileFavourite",
 				component: () => ProfileFavourite,
+				meta: {
+					title: "Favourite",
+				},
 			},
 		],
 	},
@@ -101,6 +117,9 @@ const routes = [
 		name: "Post",
 		props: true,
 		component: () => Post,
+		meta: {
+			title: "Post",
+		},
 	},
 	{
 		path: "/register",
